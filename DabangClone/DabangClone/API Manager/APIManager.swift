@@ -52,7 +52,7 @@ final class APIManager {
     // MARK: - [ Manage JWT ]
     func getAccessTokenFromKeyChain() -> String {
 //        let accessToken = keyChain.get(Key.keyChain) ?? ""
-        let tempToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTkxOTU2MTY0LCJlbWFpbCI6ImFkbWluQGdvb2dsZS5jb20ifQ.JsrV4hCOQl857pVCxcaCup1alS5yE_ftz7Yw2yXD1CA"
+        let tempToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTk3OTg5NDQ5LCJlbWFpbCI6ImFkbWluQGdvb2dsZS5jb20ifQ.Hf77-m54rUIIC_Om6fHMRsU6XLsBL8izOFf0W_tojYM"
         return tempToken
     }
     
@@ -310,7 +310,7 @@ final class APIManager {
       "builtIn" : builtIn ?? "",//Bool값
       "veranda" : veranda ?? "" //Bool값
     ]
-    
+  }
   
   
   //GET: 전체 분양 전체 리스트
@@ -368,7 +368,7 @@ final class APIManager {
   
   //GET: id를 기준으로 특정 분양 1개
   func getCertainSaleData(id: Int, completion: @escaping (Result<SaleInfo, Error>) -> Void) {
-    AF.request( baseURL + "/presales/" + "\(id)" + "/", method: .get).responseDecodable(of: SaleInfo.self) { (response) in
+    AF.request( baseURL + "/presales/" + "\(id)" , method: .get).responseDecodable(of: SaleInfo.self) { (response) in
       switch response.result {
       case .success(let sale):
         completion(.success(sale))

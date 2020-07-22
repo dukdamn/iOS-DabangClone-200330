@@ -186,3 +186,9 @@ extension UIView {
 }
 
 
+extension UINavigationController {
+    func popViewControllers(_ count: Int) {
+        guard viewControllers.count > count else { return }
+        popToViewController(viewControllers[viewControllers.count - count - 1], animated: true)
+    }
+}

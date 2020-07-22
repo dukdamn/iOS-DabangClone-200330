@@ -119,9 +119,16 @@ class AddRoomViewController: UIViewController {
     let roomForSaleData = RoomForSale.shared
     if roomForSaleData.roomData.loadAddress != nil {
       addressView.setComplete()
+      basicInfomationView.setComplete()
+      additionalView.setComplete()
+      explanationView.setComplete()
+      completionButton.setTitleColor(.white, for: .normal)
     }
   }
   @objc private func didTapCompletionButton(_ sender: UIButton) {
+    self.navigationController?.popViewControllers(3)
+    
+    
     
   }
   @objc private func didTapAddressGesture(_ sender: UITapGestureRecognizer) {

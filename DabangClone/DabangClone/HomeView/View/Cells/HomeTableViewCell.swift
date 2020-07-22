@@ -7,10 +7,21 @@
 //
 
 import UIKit
+
+protocol HomeTableViewCellDelegate: class {
+  func presentController(indexPath: IndexPath) -> Void
+  func presentWebController(url: String) -> Void
+  func presentSaleController(id: Int) -> Void
+  func presentMapController() -> Void
+}
+
+
 // 메인 페이지
 class HomeTableViewCell: UITableViewCell {
   // MARK: - Identifier
   static let identifier = "HomeTableViewCell"
+  // MARK: - Delegate
+  weak var delegate: HomeTableViewCellDelegate?
   // MARK: - Property
   private let titleLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 18)
@@ -64,6 +75,15 @@ class HomeTableViewCell: UITableViewCell {
   }
   
   @objc private func didTapButton(_sender : UIButton) {
+    print(self.indexPath.row)
+    delegate?.presentController(indexPath: indexPath)
+    switch indexPath.row {
+    case 0: break
+    case 1: break
+    case 2: break
+    default:
+      break
+    }
     print("didTapButton")
   }
   // MARK: - setupUI
@@ -99,22 +119,38 @@ class HomeTableViewCell: UITableViewCell {
 
 extension HomeTableViewCell: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    5
+    print(indexPath.row)
+    switch self.indexPath.row {
+    case 0:
+      return interestRoomDatas.count
+    case 1:
+      return interestApartDatas.count
+    case 2:
+      return saleHomeDatas.count
+    case 3:
+      return contentDatas.count
+    default:
+      return 0
+    }
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     switch self.indexPath.row {
     case 0:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeInterestCollectionViewCell.identifier, for: indexPath ) as! HomeInterestCollectionViewCell
+      cell.configue(data: interestRoomDatas[indexPath.item])
       return cell
     case 1:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeInterestCollectionViewCell.identifier, for: indexPath ) as! HomeInterestCollectionViewCell
+      cell.configue(data: interestApartDatas[indexPath.item])
       return cell
     case 2:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSaleCollectionViewCell.identifier, for: indexPath ) as! HomeSaleCollectionViewCell
+      cell.configue(data: saleHomeDatas[indexPath.item])
       return cell
     case 3:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeRecommendedCollectionViewCell.identifier, for: indexPath ) as! HomeRecommendedCollectionViewCell
+      cell.configue(data: contentDatas[indexPath.item])
       return cell
     default:
       return UICollectionViewCell()
@@ -126,9 +162,9 @@ extension HomeTableViewCell: UICollectionViewDataSource {
 extension HomeTableViewCell: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     if self.indexPath.row == 3 {
-      return CGSize(width: collectionView.frame.width / 3, height: collectionView.frame.height - 20)
+      return CGSize(width: collectionView.frame.width / 3, height: collectionView.frame.height - 10)
     } else {
-      return CGSize(width: collectionView.frame.width * 3 / 5, height: collectionView.frame.height - 20)
+      return CGSize(width: collectionView.frame.width * 3 / 5, height: collectionView.frame.height - 10)
     }
   }
   // 위아래 패딩
@@ -148,5 +184,16 @@ extension HomeTableViewCell: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeTableViewCell: UICollectionViewDelegate {
-  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    switch self.indexPath.row {
+    case 0:
+      delegate?.presentMapController()
+    case 2:
+      delegate?.presentSaleController(id: indexPath.item)
+    case 3:
+      delegate?.presentWebController(url: contentDatas[indexPath.item].url)
+    default:
+      break
+    }
+  }
 }

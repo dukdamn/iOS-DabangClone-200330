@@ -13,12 +13,11 @@ class HomeRecommendedCollectionViewCell: UICollectionViewCell {
   static let identifier = "HomeRecommendedCollectionViewCell"
   // MARK: - Property
   private let imageView = UIImageView().then {
-    $0.image = UIImage(named: "saleEmptyImage")
+//    $0.contentMode = .scaleToFill
     $0.layer.cornerRadius = 4
     $0.clipsToBounds = true
   }
   private let titleLabel = UILabel().then {
-    $0.text = "공적마우스 판매쳐 어쩌구 저쩌구"
     $0.font = .boldSystemFont(ofSize: 15)
   }
   private let dabangLabel = UILabel().then {
@@ -27,7 +26,6 @@ class HomeRecommendedCollectionViewCell: UICollectionViewCell {
     $0.textColor = UIColor(named: "regulationColor")
   }
   private let detailLabel = UILabel().then {
-    $0.text = "조회 49,183"
     $0.font = .systemFont(ofSize: 15)
     $0.textColor = UIColor(named: "DetailColor")
   }
@@ -42,10 +40,14 @@ class HomeRecommendedCollectionViewCell: UICollectionViewCell {
   }
   
   // MARK: - Action
-  
+  func configue(data: ContentData) {
+    self.titleLabel.text = data.title
+    self.detailLabel.text = "조회 " + data.count
+    self.imageView.image = UIImage(named: data.image)
+  }
   // MARK: - setupUI
   private func setupUI() {
-    self.contentView.addSubviews([imageView, titleLabel, dabangLabel, detailLabel])
+    self.addSubviews([imageView, titleLabel, dabangLabel, detailLabel])
     setupConstraint()
   }
   
@@ -53,13 +55,14 @@ class HomeRecommendedCollectionViewCell: UICollectionViewCell {
   private func setupConstraint() {
     imageView.snp.makeConstraints {
       $0.top.leading.trailing.equalToSuperview()
+      $0.height.equalTo(self.frame.maxY / 10 * 7)
     }
     titleLabel.snp.makeConstraints {
-      $0.top.equalTo(imageView.snp.bottom)
+      $0.top.equalTo(imageView.snp.bottom).offset(4)
       $0.leading.trailing.equalToSuperview()
     }
     dabangLabel.snp.makeConstraints {
-      $0.top.equalTo(titleLabel.snp.bottom)
+      $0.top.equalTo(titleLabel.snp.bottom).offset(4)
       $0.leading.equalToSuperview()
       $0.bottom.equalToSuperview()
     }

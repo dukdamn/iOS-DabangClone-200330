@@ -18,7 +18,6 @@ class HomeInterestCollectionViewCell: UICollectionViewCell {
     $0.clipsToBounds = true
   }
   private let countLabel = UILabel().then {
-    $0.text = "0개의 방 "
     $0.textColor = .white
     $0.layer.cornerRadius = 5
     $0.clipsToBounds = true
@@ -27,12 +26,11 @@ class HomeInterestCollectionViewCell: UICollectionViewCell {
     $0.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
   }
   private let titleLabel = UILabel().then {
-    $0.text = "송파동"
     $0.font = .boldSystemFont(ofSize: 15)
   }
   private let detailLabel = UILabel().then {
-    $0.text = "아파트,  78세대,  1978.04"
     $0.font = .systemFont(ofSize: 15)
+    $0.textColor = #colorLiteral(red: 0.6077951789, green: 0.6078702807, blue: 0.6077696681, alpha: 1)
   }
   // MARK: - Init
   override init(frame: CGRect) {
@@ -45,7 +43,17 @@ class HomeInterestCollectionViewCell: UICollectionViewCell {
   }
   
   // MARK: - Action
+  func configue(data: InterestApart) {
+    self.titleLabel.text = data.title
+    self.detailLabel.text = data.detail
+    self.imageView.image = UIImage(named: data.image)
+  }
   
+  func configue(data: InterestRoom) {
+    self.titleLabel.text = data.title
+    self.detailLabel.text = data.detail
+    self.imageView.image = UIImage(named: data.image)
+  }
   // MARK: - setupUI
   private func setupUI() {
     self.contentView.addSubviews([imageView, titleLabel, detailLabel])
@@ -62,13 +70,13 @@ class HomeInterestCollectionViewCell: UICollectionViewCell {
       $0.leading.bottom.equalToSuperview()
     }
     titleLabel.snp.makeConstraints {
-      $0.top.equalTo(imageView.snp.bottom)
+      $0.top.equalTo(imageView.snp.bottom).offset(8)
       $0.leading.equalToSuperview()
     }
     detailLabel.snp.makeConstraints {
-      $0.top.equalTo(titleLabel.snp.bottom)
+      $0.top.equalTo(titleLabel.snp.bottom).offset(6)
       $0.leading.equalToSuperview()
-      $0.bottom.equalToSuperview()
+      $0.bottom.equalToSuperview().offset(-4)
     }
   }
 }

@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
     //    checkAuth()
     APIManager.shared.logout()
     self.view.backgroundColor = .white
-    getTest()
+//    getTest()
     setupUI()
   }
   
@@ -113,6 +113,7 @@ extension HomeViewController: UITableViewDataSource {
         return cell
       default:
         let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as! HomeTableViewCell
+        cell.delegate = self
         cell.configue(data: datas[indexPath.row], indexPath: indexPath)
         return cell
       }
@@ -173,4 +174,50 @@ extension HomeViewController: SearchViewDelegate {
     
     present(vc,animated: true,completion: nil)
   }
+}
+
+extension HomeViewController: HomeTableViewCellDelegate {
+  func presentMapController() {
+    self.tabBarController?.selectedIndex = 2
+  }
+  
+  func presentSaleController(id: Int) {
+    let vc = SaleDetailViewController()
+    APIManager.shared.getCertainSaleData(id: id) { (response) in
+      switch response {
+      case .success(let saleInfo):
+        vc.saleData = saleInfo
+        print("getCertainSaleData❤️ id->\(id + 1) ")
+        self.navigationController?.pushViewController(vc, animated: true)
+      case .failure(let error):
+        print("getCertainSaleData Error🤪\(error)")
+      }
+    }
+  }
+  
+  func presentWebController(url: String) {
+    let vc = WebContentViewController()
+    let myURL = URL(string: url)
+    let myRequest = URLRequest(url: myURL!)
+    vc.webView.load(myRequest)
+    vc.modalPresentationStyle = .fullScreen
+    navigationController?.pushViewController(vc, animated: true)
+  }
+  
+  func presentController(indexPath: IndexPath) {
+    switch indexPath.row {
+    case 0:
+      break
+    case 1:
+      self.tabBarController?.selectedIndex = 1
+    case 2:
+      self.tabBarController?.selectedIndex = 3
+    case 0:
+      break
+    default:
+      break
+    }
+  }
+  
+  
 }
