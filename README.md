@@ -20,7 +20,7 @@
 
 - Flow chart : 초기 기획 단계에서 앱의 흐름과 주요 기능을 파악, UI 분석
 
-![화면 기록 2020-07-22 오후 4.11.33.mov](https://tva1.sinaimg.cn/large/007S8ZIlgy1ggzt6mjwugg30d10dwqvg.gif)
+![Design_XD](https://tva1.sinaimg.cn/large/007S8ZIlgy1gh6rkb6bk8g30d10dwqvg.gif)
 
 
 
@@ -40,8 +40,6 @@
 
 - 소셜 로그인 기능 구현 (Kakao, Apple, Facebook)
 
-
-
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggzt8hhpwzg30dw07te08.gif" alt="login.mov" style="zoom:150%;" />
 
 
@@ -52,3 +50,14 @@
 
 ![GitKraken.mov](https://tva1.sinaimg.cn/large/007S8ZIlgy1ggzuamg4n7g30dw0a41kz.gif)
 
+* erd
+
+  ![Dabang_erd](https://tva1.sinaimg.cn/large/007S8ZIlgy1gh6rgry8b9j31n40u0430.jpg)
+
+
+
+## 영상
+
+![Dabang](https://tva1.sinaimg.cn/large/007S8ZIlgy1gh6rlm3t6jj31hj0u075o.jpg)
+
+* https://www.youtube.com/watch?v=demB9_7O5U4&feature=youtu.be
